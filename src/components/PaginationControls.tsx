@@ -49,7 +49,6 @@ export const PaginationControls = ({
         mt: 2,
       }}
     >
-      {/* 🧩 Select à ESQUERDA */}
       {setItemsPerPage && itemsPerPage !== undefined && (
         <FormControl
           size={isSmall ? "small" : "medium"}
@@ -74,7 +73,7 @@ export const PaginationControls = ({
               },
             }}
           >
-            {[5, 10, 20, 50].map((n) => (
+            {[5, 10].map((n) => (
               <MenuItem key={n} value={n}>
                 {n} por página
               </MenuItem>
@@ -83,7 +82,6 @@ export const PaginationControls = ({
         </FormControl>
       )}
 
-      {/* ⏩ Botões à DIREITA */}
       <Box display="flex" alignItems="center" gap={isSmall ? 1.5 : 2.5}>
         <Button
           onClick={prevPage}

@@ -37,7 +37,7 @@ Cada escolha tecnológica foi feita com o objetivo de equilibrar **performance, 
 - **ESLint + Prettier** — garante padronização e consistência de código em toda a base.  
 - **useMediaQuery + Suspense** — suporte a dark mode automático e otimização de carregamento (code-splitting).
 
-Essas decisões criam uma base sólida, fácil de manter e expandir — digna de produção.
+Essas decisões criam uma base sólida, fácil de manter e expandir.
 
 ---
 
@@ -96,4 +96,4 @@ Este projeto foi desenvolvido exclusivamente para fins de avaliação técnica n
 Código livre para análise, estudo e revisão técnica.
 
 
-Projeto desenvolvido para o desafio técnico Zucchetti Brasil 🚀
+Projeto desenvolvido para o desafio técnico Zucchetti Brasil.

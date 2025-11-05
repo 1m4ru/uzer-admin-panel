@@ -10,11 +10,11 @@ jest.mock("react-hot-toast", () => ({
 
 jest.mock("../services/userService", () => ({
   useCreateUser: () => ({
-    mutate: jest.fn((data, { onSuccess }) => onSuccess && onSuccess()),
+    mutate: jest.fn((_, { onSuccess }) => onSuccess && onSuccess()),
     isPending: false,
   }),
   useUpdateUser: () => ({
-    mutate: jest.fn((data, { onSuccess }) => onSuccess && onSuccess()),
+    mutate: jest.fn((_, { onSuccess }) => onSuccess && onSuccess()),
     isPending: false,
   }),
 }));

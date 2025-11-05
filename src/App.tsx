@@ -10,7 +10,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { UserList } from "./components/userList/UserList";
 import { UserProvider } from "./context/UserProvider";
 import Hero from "./components/Hero";
-import React, { Suspense } from "react";
+import  { Suspense } from "react";
 import { buildTheme } from "./theme";
 import Footer from "./components/Footer";
 
