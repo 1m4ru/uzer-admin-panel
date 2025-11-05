@@ -7,6 +7,7 @@
 ![Yup](https://img.shields.io/badge/Yup-Validation-2c5282?logo=yup&logoColor=white)
 ![Jest](https://img.shields.io/badge/Jest-92%25_Test_Coverage-99425b?logo=jest&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![CI Status](https://github.com/1m4ru/zucchetti-user-panel/actions/workflows/main.yml/badge.svg)
 
 ---
 
@@ -113,9 +114,6 @@ src/
 Este projeto foi desenvolvido exclusivamente para fins de **avaliação técnica** no processo seletivo da **Zucchetti Brasil**.  
 Código livre para análise, estudo e revisão técnica.
 
----
-
-**Desenvolvido por Maruan Moussa**
 ---
 
 **Desenvolvido por [Maruan Moussa](https://github.com/MaruanMoussa)**  
