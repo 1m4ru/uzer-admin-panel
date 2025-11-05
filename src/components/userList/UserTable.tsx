@@ -1,8 +1,8 @@
-import { useState} from "react";
+import { useState } from "react";
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
     Paper, IconButton, Chip, Box,
-    Typography, Button, TableFooter,
+    TableFooter,
     Tooltip
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -15,23 +15,26 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { UserHeader } from "../UserHeader";
 import { useFilteredUsers } from "../../hooks/useFilteredUsers";
+import { PaginationControls } from "../PaginationControls";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface UserTableProps {
     users?: UserModel[]
 }
 
-export default function UserTable({ users = []}: UserTableProps) {
+export default function UserTable({ users = [] }: UserTableProps) {
     const [filter, setFilter] = useState("");
     const [selectedUser, setSelectedUser] = useState<UserModel | null>(null);
     const [deleteTarget, setDeleteTarget] = useState<UserModel | null>(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
-
+    const [itemsPerPage, setItemsPerPage] = useState(5);
     const filteredUsers = useFilteredUsers({
         users,
         filter,
         sortOrder,
-      });
+    });
+    const qc = useQueryClient();
 
     const {
         currentPage,
@@ -43,21 +46,21 @@ export default function UserTable({ users = []}: UserTableProps) {
         isLastPage,
     } = usePagination({
         data: filteredUsers,
-        itemsPerPage: 10,
+        itemsPerPage,
     });
 
-    
+
     return (
         <Box sx={{ width: "100%", maxWidth: 1200, mx: "auto", mt: 6, p: 2 }}>
             <Paper elevation={3} sx={{ borderRadius: 3, overflow: "hidden" }}>
-            <UserHeader
-          filter={filter}
-          setFilter={setFilter}
-          onAddUser={() => {
-            setSelectedUser(null);
-            setIsFormOpen(true);
-          }}
-        />
+                <UserHeader
+                    filter={filter}
+                    setFilter={setFilter}
+                    onAddUser={() => {
+                        setSelectedUser(null);
+                        setIsFormOpen(true);
+                    }}
+                />
                 <TableContainer>
                     <Table>
                         <TableHead>
@@ -68,8 +71,8 @@ export default function UserTable({ users = []}: UserTableProps) {
                                         userSelect: "none",
                                         display: "flex",
                                         alignItems: "center",
-                                        gap: 0.5, 
-                                      }}
+                                        gap: 0.5,
+                                    }}
                                     onClick={() => setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
                                 >
                                     <strong>Nome</strong>
@@ -102,7 +105,10 @@ export default function UserTable({ users = []}: UserTableProps) {
                                             <Tooltip title="Editar Usuário" arrow>
                                                 <IconButton
                                                     onClick={() => {
-                                                        setSelectedUser(user);
+                                                        const cachedUser = qc
+                                                            .getQueryData<UserModel[]>(['users'])
+                                                            ?.find((u) => u.id === user.id);
+                                                        setSelectedUser(cachedUser ?? user);
                                                         setIsFormOpen(true);
                                                     }}
                                                 >
@@ -129,23 +135,16 @@ export default function UserTable({ users = []}: UserTableProps) {
                         <TableFooter>
                             <TableRow>
                                 <TableCell colSpan={4} align="center">
-                                    <Box
-                                        display="flex"
-                                        justifyContent="end"
-                                        alignItems="center"
-                                        gap={2}
-                                        py={2}
-                                    >
-                                        <Button onClick={prevPage} disabled={isFirstPage}>
-                                            Anterior
-                                        </Button>
-                                        <Typography variant="body2">
-                                            Página {currentPage} de {totalPages}
-                                        </Typography>
-                                        <Button onClick={nextPage} disabled={isLastPage}>
-                                            Próximo
-                                        </Button>
-                                    </Box>
+                                    <PaginationControls
+                                        currentPage={currentPage}
+                                        totalPages={totalPages}
+                                        isFirstPage={isFirstPage}
+                                        isLastPage={isLastPage}
+                                        nextPage={nextPage}
+                                        prevPage={prevPage}
+                                        itemsPerPage={itemsPerPage}
+                                        setItemsPerPage={setItemsPerPage}
+                                    />
                                 </TableCell>
                             </TableRow>
                         </TableFooter>

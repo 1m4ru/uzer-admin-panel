@@ -1,6 +1,6 @@
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-    Paper, IconButton, Chip, Box, Typography, Tooltip, Button, TableFooter
+    Paper, IconButton, Chip, Box, Typography, Tooltip, TableFooter
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -13,17 +13,19 @@ import { UserHeader } from "../UserHeader";
 import { useFilteredUsers } from "../../hooks/useFilteredUsers";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { PaginationControls } from "../PaginationControls";
 
 interface UserTableCompactProps {
     users?: UserModel[]
 }
 
-export default function UserTableCompact({ users = []}: UserTableCompactProps) {
+export default function UserTableCompact({ users = [] }: UserTableCompactProps) {
     const [selectedUser, setSelectedUser] = useState<UserModel | null>(null);
     const [deleteTarget, setDeleteTarget] = useState<UserModel | null>(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [filter, setFilter] = useState("");
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+    const [itemsPerPage, setItemsPerPage] = useState(5);
     const filteredUsers = useFilteredUsers({
         users,
         filter,
@@ -43,10 +45,10 @@ export default function UserTableCompact({ users = []}: UserTableCompactProps) {
         itemsPerPage: 5,
     });
 
-    
+
     return (
         <Box sx={{ width: "100%", maxWidth: 1000, mx: "auto", mt: 4, p: 2 }}>
-            <Paper elevation={3} sx={{ borderRadius: 3, overflow: "hidden" }}>
+            <Paper elevation={3} sx={{ borderRadius: 3, overflow: "visible" }}>
                 <UserHeader
                     filter={filter}
                     setFilter={setFilter}
@@ -61,13 +63,13 @@ export default function UserTableCompact({ users = []}: UserTableCompactProps) {
                         <TableHead>
                             <TableRow sx={{ backgroundColor: "rgba(0,0,0,0.05)" }}>
                                 <TableCell
-                                   sx={{
-                                    cursor: "pointer",
-                                    userSelect: "none",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 0.5, 
-                                  }}
+                                    sx={{
+                                        cursor: "pointer",
+                                        userSelect: "none",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 0.5,
+                                    }}
                                     onClick={() => setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
                                 >
                                     <strong>Nome</strong>
@@ -81,7 +83,6 @@ export default function UserTableCompact({ users = []}: UserTableCompactProps) {
                                 <TableCell align="right"><strong>Ações</strong></TableCell>
                             </TableRow>
                         </TableHead>
-
                         <TableBody>
                             {paginatedData.length > 0 ? (
                                 paginatedData.map((user) => (
@@ -126,32 +127,23 @@ export default function UserTableCompact({ users = []}: UserTableCompactProps) {
                                 </TableRow>
                             )}
                         </TableBody>
-
-                        {/* Paginação */}
-                        <TableFooter>
-                            <TableRow>
-                                <TableCell colSpan={3} align="center">
-                                    <Box
-                                        display="flex"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        gap={2}
-                                        py={2}
-                                    >
-                                        <Button onClick={prevPage} disabled={isFirstPage}>
-                                            Anterior
-                                        </Button>
-                                        <Typography variant="body2">
-                                            Página {currentPage} de {totalPages}
-                                        </Typography>
-                                        <Button onClick={nextPage} disabled={isLastPage}>
-                                            Próximo
-                                        </Button>
-                                    </Box>
-                                </TableCell>
-                            </TableRow>
-                        </TableFooter>
                     </Table>
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell colSpan={3} align="center">
+                                <PaginationControls
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    isFirstPage={isFirstPage}
+                                    isLastPage={isLastPage}
+                                    nextPage={nextPage}
+                                    prevPage={prevPage}
+                                    itemsPerPage={itemsPerPage}
+                                    setItemsPerPage={setItemsPerPage}
+                                />
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
                 </TableContainer>
             </Paper>
 

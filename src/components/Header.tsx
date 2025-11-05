@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Typography, IconButton, Box } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useThemeMode } from "../hooks/useThemeMode";
@@ -15,24 +15,54 @@ export default function Header() {
       elevation={0}
       sx={{
         backdropFilter: "blur(12px)",
-        backgroundColor: mode === "dark" ? "rgba(18,18,18,0.9)" : "rgba(255,255,255,0.8)",
+        backgroundColor:
+          mode === "dark" ? "rgba(18,18,18,0.9)" : "rgba(255,255,255,0.8)",
         color: mode === "dark" ? "#fff" : "#111",
         boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
       }}
     >
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between", py: 1 }}>
-        <Typography
-          variant="h5"
-          fontWeight={700}
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          py: 1,
+        }}
+      >
+        <Box
           sx={{
             display: "flex",
             alignItems: "center",
             gap: 1,
-            letterSpacing: 0.5,
           }}
         >
-          Zucchetti User Panel ⚙️
-        </Typography>
+          <Box
+            component="img"
+            src="/zucchetti.png"
+            alt="Zucchetti logo"
+            sx={{
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              objectFit: "cover",
+              boxShadow: "0 0 8px rgba(124,58,237,0.4)",
+            }}
+          />
+
+          <Typography
+            variant="h5"
+            fontWeight={700}
+            sx={{
+              letterSpacing: 0.5,
+              background:
+                "linear-gradient(90deg, #3b82f6, #7c3aed, #3b82f6)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Zucchetti
+          </Typography>
+        </Box>
 
         <IconButton
           onClick={() => dispatch(setMode(mode === "light" ? "dark" : "light"))}

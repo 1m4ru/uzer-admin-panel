@@ -1,5 +1,4 @@
-// src/components/UserHeader.tsx
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, useTheme } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 
@@ -10,8 +9,11 @@ interface UserHeaderProps {
 }
 
 export const UserHeader = ({ filter, setFilter, onAddUser }: UserHeaderProps) => {
+  const theme = useTheme();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const isTablet = useMediaQuery("(min-width: 769px) and (max-width: 1023px)");
+
+  const isLight = theme.palette.mode === "light";
 
   return (
     <Box
@@ -20,47 +22,77 @@ export const UserHeader = ({ filter, setFilter, onAddUser }: UserHeaderProps) =>
       justifyContent="space-between"
       alignItems={isMobile ? "stretch" : "center"}
       gap={isMobile ? 1.5 : 0}
-      p={2}
+      p={2.5}
       sx={{
-        background: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
-        borderTopLeftRadius: 12,
-        borderTopRightRadius: 12,
+        background: isLight
+          ? "linear-gradient(90deg, rgba(59,130,246,0.15), rgba(124,58,237,0.15))"
+          : "linear-gradient(90deg, rgba(59,130,246,0.12), rgba(124,58,237,0.12))",
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        backdropFilter: "blur(8px)",
+        borderBottom: isLight
+          ? "1px solid rgba(0,0,0,0.05)"
+          : "1px solid rgba(255,255,255,0.08)",
+        transition: "background-color 0.3s ease, border 0.3s ease",
       }}
     >
       <TextField
-        placeholder="Buscar por nome..."
-        size="small"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-        fullWidth={isMobile}
-        sx={{
-          width: isMobile ? "100%" : isTablet ? "60%" : "40%",
-          bgcolor: "white",
-          borderRadius: 1,
-          "& .MuiOutlinedInput-root": { borderRadius: 1 },
-        }}
-      />
+  placeholder="Buscar por nome..."
+  size="small"
+  value={filter}
+  onChange={(e) => setFilter(e.target.value)}
+  fullWidth={isMobile}
+  sx={{
+    width: isMobile ? "100%" : isTablet ? "60%" : "40%",
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "10px",
+      backgroundColor: isLight
+        ? "rgba(255, 255, 255, 0.95)"
+        : "rgba(255, 255, 255, 0.08)",
+      "& fieldset": { border: "none" },
+    },
+    "& .MuiInputBase-input": {
+      color: isLight ? "#111" : "#f5f5f5",
+      "::placeholder": {
+        color: isLight
+          ? "rgba(0, 0, 0, 0.6)"
+          : "rgba(255, 255, 255, 0.75)",
+        opacity: 1,
+        flexShrink: 0,
+      },
+    },
+  }}
+/>
 
+      {/* Botão Novo Usuário */}
       <Button
-        variant="contained"
-        startIcon={<AddIcon />}
-        onClick={onAddUser}
-        sx={{
-          mt: isMobile ? 1.5 : 0, // 👈 espaço entre o input e o botão no mobile
-          width: isMobile ? "100%" : "auto", // 👈 botão ocupa largura total no mobile
-          background: "white",
-          color: "#3b82f6",
-          fontWeight: 600,
-          px: isMobile ? 0 : 3,
-          py: isMobile ? 1.2 : 0.8,
-          fontSize: isMobile ? "0.9rem" : "1rem",
-          "&:hover": {
-            background: "#f3f4f6",
-          },
-        }}
-      >
-        Novo Usuário
-      </Button>
+  variant="contained"
+  startIcon={<AddIcon />}
+  onClick={onAddUser}
+  sx={{
+    mt: isMobile ? 2 : 0, // mais espaçamento no mobile
+    width: isMobile ? "100%" : "auto",
+    minWidth: isMobile ? "100%" : "160px", // evita “estouro” visual
+    borderRadius: "10px",
+    fontWeight: 600,
+    px: isMobile ? 0 : 3,
+    py: isMobile ? 1.4 : 0.9,
+    fontSize: isMobile ? "0.95rem" : "1rem",
+    background: "linear-gradient(90deg, #3b82f6, #7c3aed)",
+    color: "#fff",
+    textTransform: "none",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    display: "flex",
+    justifyContent: "center",
+    "&:hover": {
+      background: "linear-gradient(90deg, #2563eb, #6d28d9)",
+      boxShadow: "0 6px 16px rgba(0,0,0,0.15)",
+    },
+  }}
+>
+  Novo Usuário
+</Button>
+
     </Box>
   );
 };

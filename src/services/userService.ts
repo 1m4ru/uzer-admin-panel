@@ -14,7 +14,7 @@ export function useUsers() {
           id: u.id ?? Date.now(), 
           name: u.name,
           email: u.email,
-          status: Math.random() > 0.5 ? "ativo" : "inativo",
+          status: u.status ?? "ativo"
         }));
       },
     });
@@ -42,20 +42,24 @@ export const useCreateUser = () => {
 
 export const useUpdateUser = () => {
     const qc = useQueryClient();
-
+  
     return useMutation({
-        mutationFn: updateUser,
-        onSuccess: (updateUser) => {
-            qc.setQueryData<UserModel[]>(USERS_KEY, (old = []) =>
-                old.map((u) =>
-                    u.id === updateUser.id ? { ...u, ...updateUser } : u
-                )
-            );
-        },
+      mutationFn: updateUser,
+      onSuccess: (updatedUser) => {
+        qc.setQueryData<UserModel[]>(USERS_KEY, (old = []) =>
+          old.map((u) =>
+            u.id === updatedUser.id
+              ? {
+                  ...u,
+                  ...updatedUser,
+                  status: updatedUser.status ?? u.status, 
+                }
+              : u
+          )
+        );
+      },
     });
-
-};
-
+  };
 export const useDeleteUser = () => {
     const qc = useQueryClient();
 
