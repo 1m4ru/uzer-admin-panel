@@ -23,7 +23,7 @@ Além da entrega funcional, o projeto foi construído com foco em:
 
 ---
 
-## ⚙️ Tecnologias e Decisões Técnicas
+## Tecnologias e Decisões Técnicas
 
 Cada escolha tecnológica foi feita com o objetivo de equilibrar **performance, escalabilidade e clareza de código**.
 
@@ -68,14 +68,22 @@ Para rodar os testes:
 npm test
 # ou
 yarn test
+```
 
+Para rodar o projeto localmente:
+```bash
 # Instalar dependências
 npm install
 
 # Rodar o projeto
 npm run dev
+```
 
-``` 
+---
+
+## Estrutura de Pastas
+
+```bash
 src/
  ├─ api/                # Integração com API REST
  ├─ components/         # Componentes reutilizáveis (tabela, modais, etc.)
@@ -87,13 +95,17 @@ src/
  ├─ hooks/              # Hooks customizados (useFilteredUsers, usePagination, etc.)
  ├─ services/           # Lógica React Query (CRUD)
  ├─ theme/              # Configuração de tema (light/dark)
- ├─ validations/        # Schemas Zod
+ ├─ validations/        # Schemas Yup
  └─ tests/              # Testes automatizados
+```
+
+---
 
 ## 🧾 Licença
 
-Este projeto foi desenvolvido exclusivamente para fins de avaliação técnica no processo seletivo da **Zucchetti Brasil**.  
+Este projeto foi desenvolvido exclusivamente para fins de **avaliação técnica** no processo seletivo da **Zucchetti Brasil**.  
 Código livre para análise, estudo e revisão técnica.
 
+---
 
-Projeto desenvolvido para o desafio técnico Zucchetti Brasil.
+**Desenvolvido por Maruan Moussa**
