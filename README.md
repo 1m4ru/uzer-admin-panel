@@ -22,7 +22,7 @@ Este projeto combina **fluidez visual, validação de dados, dark mode e testes 
 ## 🌐 **Demo Online**
 
 Deploy disponível em produção:  
-👉 https://zucchetti-user-panel.vercel.app
+👉 https://uzer-admin-panel.vercel.app/
 
 *(o nome público original foi mantido apenas por compatibilidade com o deploy; internamente o projeto foi rebrandado)*
 
