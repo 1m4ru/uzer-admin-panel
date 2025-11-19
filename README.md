@@ -9,6 +9,7 @@ Este projeto combina **fluidez visual, validação de dados, dark mode e testes 
 
 ## 🚀 **Stack Principal**
 
+<p align="left">
 <img src="https://img.shields.io/badge/React-18.3.1-61dafb?logo=react&logoColor=white" />
 <img src="https://img.shields.io/badge/TypeScript-5.3.3-3178c6?logo=typescript&logoColor=white" />
 <img src="https://img.shields.io/badge/MUI-5.15.0-007fff?logo=mui&logoColor=white" />
@@ -16,7 +17,7 @@ Este projeto combina **fluidez visual, validação de dados, dark mode e testes 
 <img src="https://img.shields.io/badge/Yup-Validation-2c5282?logo=yup&logoColor=white" />
 <img src="https://img.shields.io/badge/Jest-92%25_Test_Coverage-99425b?logo=jest&logoColor=white" />
 <img src="https://img.shields.io/badge/license-MIT-green" />
-
+</p>
 ---
 
 ## 🌐 **Demo Online**
